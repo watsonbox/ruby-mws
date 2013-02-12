@@ -33,7 +33,7 @@ module MWS
 
       def send_request(name, params, options)
         # prepare all required params...
-        params = [params, options, @connection.to_hash].inject :merge
+        params = [options, @connection.to_hash, params].inject :merge
         
         # default/common params
         params[:action]            ||= name.to_s.camelize
