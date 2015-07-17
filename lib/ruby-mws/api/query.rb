@@ -17,7 +17,8 @@ module MWS
       end
 
       def signature
-        digest = OpenSSL::Digest::Digest.new('sha256')
+        klass = OpenSSL::Digest.respond_to?(:new) ? OpenSSL::Digest : OpenSSL::Digest::Digest
+        digest = klass.new('sha256')
         key = @params[:secret_access_key]
         Base64.encode64(OpenSSL::HMAC.digest(digest, key, canonical)).chomp
       end
